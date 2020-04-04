@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styled from "styled-components";
 import * as d3 from "d3";
 import { accessorPropsType, callAccessor } from "../ChartContainer/utils";
 
@@ -14,9 +15,8 @@ const Bars = ({
 }) => (
   <React.Fragment>
     {data.map((d, i) => (
-      <rect
+      <Rect
         {...props}
-        className="Bars__rect"
         key={keyAccessor(d, i)}
         x={callAccessor(xAccessor, d, i)}
         y={callAccessor(yAccessor, d, i)}
@@ -39,3 +39,8 @@ Bars.propTypes = {
 Bars.defaultProps = {};
 
 export default Bars;
+
+const Rect = styled.rect`
+  fill: #9980fa;
+  transition: all 0.3s ease-out;
+`;

@@ -1,27 +1,32 @@
-import React, { createContext, useContext } from "react"
-import { dimensionsPropsType } from "./utils"
+import React, { createContext, useContext } from "react";
+import styled from "styled-components";
+import { dimensionsPropsType } from "./utils";
 
-import "./Chart.css"
-
-const ChartContext = createContext()
-export const useChartDimensions = () => useContext(ChartContext)
+const ChartContext = createContext();
+export const useChartDimensions = () => useContext(ChartContext);
 
 const Chart = ({ dimensions, children }) => (
   <ChartContext.Provider value={dimensions}>
-    <svg className="Chart" width={dimensions.width} height={dimensions.height}>
-      <g transform={`translate(${dimensions.marginLeft}, ${dimensions.marginTop})`}>
-        { children }
+    <ChartContainerStyle width={dimensions.width} height={dimensions.height}>
+      <g
+        transform={`translate(${dimensions.marginLeft}, ${dimensions.marginTop})`}
+      >
+        {children}
       </g>
-    </svg>
+    </ChartContainerStyle>
   </ChartContext.Provider>
-)
+);
 
 Chart.propTypes = {
-  dimensions: dimensionsPropsType
-}
+  dimensions: dimensionsPropsType,
+};
 
 Chart.defaultProps = {
-  dimensions: {}
-}
+  dimensions: {},
+};
 
-export default Chart
+const ChartContainerStyle = styled.svg`
+  overflow: visible;
+`;
+
+export default Chart;

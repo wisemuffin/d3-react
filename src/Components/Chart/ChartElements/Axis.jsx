@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import * as d3 from "d3";
+import styled from "styled-components";
+import { Text } from "../ChartGeneralStyle.js";
 import { dimensionsPropsType } from "../ChartContainer/utils";
 import { useChartDimensions } from "../ChartContainer";
 
@@ -41,32 +43,26 @@ function AxisHorizontal({ dimensions, label, formatTick, scale, ...props }) {
   const ticks = scale.ticks(numberOfTicks);
 
   return (
-    <g
-      className="Axis AxisHorizontal"
+    <AxisHorizontalStyle
       transform={`translate(0, ${dimensions.boundedHeight})`}
       {...props}
     >
-      <line className="Axis__line" x2={dimensions.boundedWidth} />
+      <Axis__line x2={dimensions.boundedWidth} />
 
       {ticks.map((tick, i) => (
-        <text
-          key={tick}
-          className="Axis__tick"
-          transform={`translate(${scale(tick)}, 25)`}
-        >
+        <Axis__tick key={tick} transform={`translate(${scale(tick)}, 25)`}>
           {formatTick(tick)}
-        </text>
+        </Axis__tick>
       ))}
 
       {label && (
-        <text
-          className="Axis__label"
+        <Axis__label
           transform={`translate(${dimensions.boundedWidth / 2}, 60)`}
         >
           {label}
-        </text>
+        </Axis__label>
       )}
-    </g>
+    </AxisHorizontalStyle>
   );
 }
 
@@ -76,22 +72,17 @@ function AxisVertical({ dimensions, label, formatTick, scale, ...props }) {
   const ticks = scale.ticks(numberOfTicks);
 
   return (
-    <g className="Axis AxisVertical" {...props}>
-      <line className="Axis__line" y2={dimensions.boundedHeight} />
+    <AxisVerticalStyle {...props}>
+      <Axis__line y2={dimensions.boundedHeight} />
 
       {ticks.map((tick, i) => (
-        <text
-          key={tick}
-          className="Axis__tick"
-          transform={`translate(-16, ${scale(tick)})`}
-        >
+        <Axis__tick key={tick} transform={`translate(-16, ${scale(tick)})`}>
           {formatTick(tick)}
-        </text>
+        </Axis__tick>
       ))}
 
       {label && (
-        <text
-          className="Axis__label"
+        <Axis__label
           style={{
             transform: `translate(-56px, ${
               dimensions.boundedHeight / 2
@@ -99,8 +90,32 @@ function AxisVertical({ dimensions, label, formatTick, scale, ...props }) {
           }}
         >
           {label}
-        </text>
+        </Axis__label>
       )}
-    </g>
+    </AxisVerticalStyle>
   );
 }
+
+const Axis__line = styled.line`
+  stroke: #bdc3c7;
+`;
+
+const Axis__label = styled(Text)`
+  text-anchor: middle;
+  font-size: 0.9em;
+  letter-spacing: 0.01em;
+`;
+
+const Axis__tick = styled(Text)`
+  font-size: 0.8em;
+  transition: all 0.3s ease-out;
+`;
+
+const AxisHorizontalStyle = styled.g`
+  dominant-baseline: middle;
+  text-anchor: end;
+`;
+
+const AxisVerticalStyle = styled.g`
+  text-anchor: middle;
+`;

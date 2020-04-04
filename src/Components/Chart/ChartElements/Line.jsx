@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import * as d3 from "d3";
+import styled from "styled-components";
 import { accessorPropsType } from "../ChartContainer/utils";
 
 const Line = ({
@@ -22,9 +23,9 @@ const Line = ({
   }
 
   return (
-    <path
+    <LineStyle
       {...props}
-      className={`Line Line--type-${type}`}
+      className={`Line--type-${type}`}
       d={lineGenerator(data)}
     />
   );
@@ -46,3 +47,19 @@ Line.defaultProps = {
 };
 
 export default Line;
+
+const LineStyle = styled.path`
+  transition: all 0.3s ease-out;
+
+  &.Line--type-area {
+    fill: rgba(152, 128, 250, 0.185);
+    stroke-width: 0;
+  }
+
+  &.Line--type-line {
+    fill: none;
+    stroke: #9980fa;
+    stroke-width: 3px;
+    stroke-linecap: round;
+  }
+`;

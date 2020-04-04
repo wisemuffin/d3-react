@@ -1,7 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import * as d3 from "d3";
+import styled from "styled-components";
 
+import { ChartGeneralStyle } from "./ChartGeneralStyle";
 import ChartContainer from "./ChartContainer";
 import Circles from "./ChartElements/Circles";
 import Axis from "./ChartElements/Axis";
@@ -29,7 +31,7 @@ const ScatterPlot = ({ data, xAccessor, yAccessor, xLabel, yLabel }) => {
   const keyAccessor = (d, i) => i;
 
   return (
-    <div className="ScatterPlot" ref={ref}>
+    <ScatterPlotStyle ref={ref}>
       <ChartContainer dimensions={dimensions}>
         <Axis
           dimensions={dimensions}
@@ -50,7 +52,7 @@ const ScatterPlot = ({ data, xAccessor, yAccessor, xLabel, yLabel }) => {
           yAccessor={yAccessorScaled}
         />
       </ChartContainer>
-    </div>
+    </ScatterPlotStyle>
   );
 };
 
@@ -65,4 +67,10 @@ ScatterPlot.defaultProps = {
   xAccessor: (d) => d.x,
   yAccessor: (d) => d.y,
 };
+
+const ScatterPlotStyle = styled(ChartGeneralStyle)`
+  height: 500px;
+  width: 500px;
+  margin-right: 2em;
+`;
 export default ScatterPlot;

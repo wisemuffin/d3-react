@@ -1,11 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import * as d3 from "d3";
+import styled from "styled-components";
 
+import { ChartGeneralStyle } from "./ChartGeneralStyle";
 import ChartContainer from "./ChartContainer";
 import Bars from "./ChartElements/Bars";
 import Axis from "./ChartElements/Axis";
 import Gradient from "./ChartElements/Gradient";
+import Tootltip from "./ChartElements/Tooltip";
 import {
   useChartDimensions,
   accessorPropsType,
@@ -52,7 +55,10 @@ const Histogram = ({ data, xAccessor, label }) => {
   const keyAccessor = (d, i) => i;
 
   return (
-    <div className="Histogram" ref={ref}>
+    <HistogramStyle ref={ref}>
+      <Tootltip>
+        <div>dave</div>
+      </Tootltip>
       <ChartContainer dimensions={dimensions}>
         <defs>
           <Gradient id={gradientId} colors={gradientColors} x2="0" y2="100%" />
@@ -79,7 +85,7 @@ const Histogram = ({ data, xAccessor, label }) => {
           style={{ fill: `url(#${gradientId})` }}
         />
       </ChartContainer>
-    </div>
+    </HistogramStyle>
   );
 };
 
@@ -94,4 +100,12 @@ Histogram.defaultProps = {
   xAccessor: (d) => d.x,
   yAccessor: (d) => d.y,
 };
+
+const HistogramStyle = styled(ChartGeneralStyle)`
+  height: 500px;
+  flex: 1;
+  min-width: 500px;
+  overflow: hidden;
+`;
+
 export default Histogram;
