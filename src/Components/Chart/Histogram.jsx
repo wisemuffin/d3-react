@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import * as d3 from "d3";
 import styled from "styled-components";
@@ -16,11 +16,13 @@ import {
 } from "./ChartContainer/utils";
 
 const gradientColors = ["#9980FA", "rgb(226, 222, 243)"];
+
 const Histogram = ({ data, xAccessor, label }) => {
   const gradientId = useUniqueId("Histogram-gradient");
   const [ref, dimensions] = useChartDimensions({
     marginBottom: 77,
   });
+  const [tooltip, setTooltip] = useState(false);
 
   const numberOfThresholds = 9;
 
@@ -56,9 +58,15 @@ const Histogram = ({ data, xAccessor, label }) => {
 
   return (
     <HistogramStyle ref={ref}>
-      <Tootltip>
-        <div>dave</div>
-      </Tootltip>
+      {tooltip && (
+        <Tootltip tooltipEvent={tooltip} x={tooltip.x} y={tooltip.y}>
+          <div>x is {tooltip.x}</div>
+          <br />
+          <div>y is {tooltip.y}</div>
+          <br />
+          <div>tooltip: {JSON.stringify(tooltip)}</div>
+        </Tootltip>
+      )}
       <ChartContainer dimensions={dimensions}>
         <defs>
           <Gradient id={gradientId} colors={gradientColors} x2="0" y2="100%" />
@@ -83,6 +91,7 @@ const Histogram = ({ data, xAccessor, label }) => {
           widthAccessor={widthAccessorScaled}
           heightAccessor={heightAccessorScaled}
           style={{ fill: `url(#${gradientId})` }}
+          setTooltip={setTooltip}
         />
       </ChartContainer>
     </HistogramStyle>
@@ -106,6 +115,7 @@ const HistogramStyle = styled(ChartGeneralStyle)`
   flex: 1;
   min-width: 500px;
   overflow: hidden;
+  position: relative;
 `;
 
 export default Histogram;

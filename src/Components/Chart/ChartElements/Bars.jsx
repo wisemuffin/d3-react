@@ -11,6 +11,7 @@ const Bars = ({
   yAccessor,
   widthAccessor,
   heightAccessor,
+  setTooltip,
   ...props
 }) => (
   <React.Fragment>
@@ -22,6 +23,13 @@ const Bars = ({
         y={callAccessor(yAccessor, d, i)}
         width={d3.max([callAccessor(widthAccessor, d, i), 0])}
         height={d3.max([callAccessor(heightAccessor, d, i), 0])}
+        onMouseOver={() =>
+          setTooltip({
+            x: callAccessor(xAccessor, d, i),
+            y: callAccessor(yAccessor, d, i),
+          })
+        }
+        onMouseOut={() => setTooltip(false)}
       />
     ))}
   </React.Fragment>

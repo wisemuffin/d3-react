@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 const TooltipContainer = styled.div`
-  opacity: 0;
   position: absolute;
   top: -12px;
   left: 0;
@@ -13,6 +12,7 @@ const TooltipContainer = styled.div`
   z-index: 10;
   transition: all 0.2s ease-out;
   pointer-events: none;
+  transform: translate(${(props) => props.x}px, ${(props) => props.y}px);
 
   &:before {
     content: "";
@@ -32,8 +32,11 @@ const TooltipContainer = styled.div`
 `;
 
 const Tooltip = (props) => {
+  console.log("tooltip x: ", props.x);
+  console.log("tooltip y: ", props.y);
+  console.log("tooltipEvent:", props.tooltipEvent);
   return (
-    <TooltipContainer id="tooltip" className="tooltip">
+    <TooltipContainer id="tooltip" className="tooltip" {...props}>
       {props.children}
     </TooltipContainer>
   );
