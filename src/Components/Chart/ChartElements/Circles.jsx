@@ -48,4 +48,7 @@ export default Circles;
 const Circle = styled.circle`
   fill: #9980fa;
   transition: all 0.3s ease-out;
+  &:hover {
+    fill: maroon;
+  }
 `;
