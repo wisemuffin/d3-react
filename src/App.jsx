@@ -24,7 +24,7 @@ const App = () => {
 
   useInterval(() => {
     setData(getData());
-  }, 40000);
+  }, 4000);
 
   return (
     <div className="App">

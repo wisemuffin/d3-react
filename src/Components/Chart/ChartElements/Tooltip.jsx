@@ -36,9 +36,6 @@ const TooltipContainer = styled.div`
 `;
 
 const Tooltip = (props) => {
-  console.log("tooltip x: ", props.x);
-  console.log("tooltip y: ", props.y);
-  console.log("tooltipEvent:", props.tooltipEvent);
   return (
     <TooltipContainer id="tooltip" className="tooltip" {...props}>
       {props.children}

@@ -51,8 +51,18 @@ function AxisHorizontal({ dimensions, label, formatTick, scale, ...props }) {
 
       {ticks.map((tick, i) => (
         <Axis__tick key={tick} transform={`translate(${scale(tick)}, 25)`}>
+          {/* <Axis__tick key={tick} transform={`translate(${scale(tick)}, 25)`}></Axis__tick> */}
           {formatTick(tick)}
         </Axis__tick>
+      ))}
+
+      {ticks.map((tick, i) => (
+        <Axis__line
+          key={tick}
+          x1={`${scale(tick)}`}
+          x2={`${scale(tick)}`}
+          y2={5}
+        ></Axis__line>
       ))}
 
       {label && (
@@ -109,6 +119,7 @@ const Axis__label = styled(Text)`
 const Axis__tick = styled(Text)`
   font-size: 0.8em;
   transition: all 0.3s ease-out;
+  text-anchor: middle;
 `;
 
 const AxisHorizontalStyle = styled.g`
