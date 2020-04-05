@@ -11,6 +11,7 @@ const Line = ({
   yAccessor,
   y0Accessor,
   interpolation,
+  setTooltip,
   ...props
 }) => {
   const lineGenerator = d3[type]()

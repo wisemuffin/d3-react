@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import * as d3 from "d3";
 import styled from "styled-components";
@@ -7,12 +7,14 @@ import { ChartGeneralStyle } from "./ChartGeneralStyle";
 import ChartContainer from "./ChartContainer";
 import Circles from "./ChartElements/Circles";
 import Axis from "./ChartElements/Axis";
+import Tootltip from "./ChartElements/Tooltip";
 import { useChartDimensions, accessorPropsType } from "./ChartContainer/utils";
 
 const ScatterPlot = ({ data, xAccessor, yAccessor, xLabel, yLabel }) => {
   const [ref, dimensions] = useChartDimensions({
     marginBottom: 77,
   });
+  const [tooltip, setTooltip] = useState(false);
 
   const xScale = d3
     .scaleLinear()
@@ -32,6 +34,18 @@ const ScatterPlot = ({ data, xAccessor, yAccessor, xLabel, yLabel }) => {
 
   return (
     <ScatterPlotStyle ref={ref}>
+      {tooltip && (
+        <Tootltip
+          tooltipEvent={tooltip}
+          x={tooltip.x + dimensions.marginLeft}
+          y={tooltip.y + dimensions.marginTop}
+        >
+          {/* <div>tooltip: {JSON.stringify(tooltip)}</div> */}
+          <div>count: {tooltip.data.length}</div>
+          <div>xAccessor: {xAccessor(tooltip.data)}</div>
+          <div>yAccessor: {yAccessor(tooltip.data)}</div>
+        </Tootltip>
+      )}
       <ChartContainer dimensions={dimensions}>
         <Axis
           dimensions={dimensions}
@@ -50,6 +64,7 @@ const ScatterPlot = ({ data, xAccessor, yAccessor, xLabel, yLabel }) => {
           keyAccessor={keyAccessor}
           xAccessor={xAccessorScaled}
           yAccessor={yAccessorScaled}
+          setTooltip={setTooltip}
         />
       </ChartContainer>
     </ScatterPlotStyle>
@@ -72,5 +87,6 @@ const ScatterPlotStyle = styled(ChartGeneralStyle)`
   height: 500px;
   width: 500px;
   margin-right: 2em;
+  position: relative;
 `;
 export default ScatterPlot;

@@ -59,12 +59,14 @@ const Histogram = ({ data, xAccessor, label }) => {
   return (
     <HistogramStyle ref={ref}>
       {tooltip && (
-        <Tootltip tooltipEvent={tooltip} x={tooltip.x} y={tooltip.y}>
-          <div>x is {tooltip.x}</div>
-          <br />
-          <div>y is {tooltip.y}</div>
-          <br />
-          <div>tooltip: {JSON.stringify(tooltip)}</div>
+        <Tootltip
+          tooltipEvent={tooltip}
+          x={tooltip.x + dimensions.marginLeft}
+          y={tooltip.y + dimensions.marginTop}
+        >
+          <div>count: {tooltip.data.length}</div>
+          <div>xAccessor: {tooltip.data.x0}</div>
+          <div>yAccessor: {yAccessor(tooltip.data)}</div>
         </Tootltip>
       )}
       <ChartContainer dimensions={dimensions}>
@@ -90,7 +92,7 @@ const Histogram = ({ data, xAccessor, label }) => {
           yAccessor={yAccessorScaled}
           widthAccessor={widthAccessorScaled}
           heightAccessor={heightAccessorScaled}
-          style={{ fill: `url(#${gradientId})` }}
+          // style={{ fill: `url(#${gradientId})` }}
           setTooltip={setTooltip}
         />
       </ChartContainer>

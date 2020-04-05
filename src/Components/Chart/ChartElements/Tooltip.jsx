@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const TooltipContainer = styled.div`
   position: absolute;
-  top: -12px;
+  top: -15px;
   left: 0;
   padding: 0.6em 1em;
   background: #fff;
@@ -12,7 +12,11 @@ const TooltipContainer = styled.div`
   z-index: 10;
   transition: all 0.2s ease-out;
   pointer-events: none;
-  transform: translate(${(props) => props.x}px, ${(props) => props.y}px);
+  overflow: visible;
+  transform: translate(
+    calc(-50% + ${(props) => props.x}px),
+    calc(-100% + ${(props) => props.y}px)
+  );
 
   &:before {
     content: "";

@@ -25,8 +25,11 @@ const Bars = ({
         height={d3.max([callAccessor(heightAccessor, d, i), 0])}
         onMouseOver={() =>
           setTooltip({
-            x: callAccessor(xAccessor, d, i),
+            x:
+              callAccessor(xAccessor, d, i) +
+              callAccessor(widthAccessor, d, i) / 2,
             y: callAccessor(yAccessor, d, i),
+            data: d,
           })
         }
         onMouseOut={() => setTooltip(false)}
@@ -51,4 +54,8 @@ export default Bars;
 const Rect = styled.rect`
   fill: #9980fa;
   transition: all 0.3s ease-out;
+
+  &:hover {
+    fill: maroon;
+  }
 `;
